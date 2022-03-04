@@ -10,7 +10,7 @@
                     <div class="row ml-3">
                     <h4 class="card-title">{{ $title ?? '' }}</h4>
                     <div class="d-flex ml-3">
-                        <a href="/add-masyarakat" class="btn btn-primary">Create Post</a>
+                        <a href="/add-masyarakat" class="btn btn-primary">Create New</a>
                     </div>
                     </div>
                 </div>
