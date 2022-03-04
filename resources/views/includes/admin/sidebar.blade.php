@@ -35,7 +35,18 @@
               <p>Table List</p>
             </a>
           </li>
-
+          <li>
+            <a href="/list-article">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>List Article</p>
+            </a>
+          </li>
+          <li>
+            <a href="/list-masyarakat">
+              <i class="nc-icon nc-single-02"></i>
+              <p>List Masyarakat</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
