@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Masyarakat extends Model
 {
     use HasFactory;
-    protected $fillable = ['nik','alamat','gmail','nama','tanggallahir','telepon'];
-    protected $guarded = ['id'];
+    // protected $fillable = ['nik','alamat','gmail','nama','tanggallahir','telepon'];
+    // protected $guarded = ['id'];
 }

@@ -8,7 +8,7 @@
                 <h5 class="card-title">{{ $form_title }}</h5>
               </div>
               <div class="card-body">
-               <form action="/store-masyarakat" method="{{ $method }}" enctype="multipart/form-data">
+               <form action="/store-user" method="POST" >
                    @csrf
                    <div class="row">
                     <div class="col-md-12">
@@ -21,8 +21,8 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Alamat</label>
-                        <input type="text" class="form-control" name="alamat" placeholder="Alamat">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Name">
                       </div>
                     </div>
                   </div>
@@ -30,34 +30,21 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control" name="gmail" placeholder="Email">
+                        <input type="text" class="form-control" name="email" placeholder="Email">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control" name="nama" placeholder="Nama">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password">
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                        <input type="date" class="form-control" name="tanggallahir" placeholder="Tanggal Lahir">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Telepon</label>
-                        <input type="number" class="form-control" name="telepon" placeholder="Telepon">
-                      </div>
-                    </div>
-                  </div>
+
+
+
                   <div class="row">
                     <div class="update ml-3">
                       <button type="submit" class="btn btn-primary btn-round">Simpan</button>

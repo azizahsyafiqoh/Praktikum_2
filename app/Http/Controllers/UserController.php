@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MasyarakatController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,13 @@ class MasyarakatController extends Controller
     public function index()
     {
         $data=[
-            'title'=>'Data Pengguna',
-            'masyarakats'=> User::where('role', 'user')->orderby('created_at','desc')->get(),
-            // 'route'=>route('masyarakat.create'),
-
+            'title'=>'Data Petugas',
+            'users'=> User::where('role','Admin')->get(),
+            // 'route'=>route('User.create'),
 
         ];
         //dd($data);
-        return view('admin.masyarakat.index', $data);
+        return view('admin.user.index', $data);
     }
 
     /**
@@ -33,11 +32,11 @@ class MasyarakatController extends Controller
     public function create()
     {
         $data=[
-            'form_title'=>'Tambah Data Masyarakat',
+            'form_title'=>'Tambah Data Petugas',
             'method'=>'POST',
-            // 'route'=>route('masyarakat.store')
+            // 'route'=>route('user.store')
         ];
-        return view('admin.masyarakat.create', $data);
+        return view('admin.user.create', $data);
     }
 
     /**
@@ -48,18 +47,24 @@ class MasyarakatController extends Controller
      */
     public function store(Request $request)
     {
-        $masyarakat = new User();
-        $masyarakat->nik = $request->nik;
-        $masyarakat->address = $request->address;
-        $masyarakat->email = $request->email;
-        $masyarakat->name = $request->name;
-        $masyarakat->dob = $request->dob;
-        $masyarakat->phone = $request->phone;
-        $masyarakat->save();
-        // return view('admin.masyarakat.index');
-        return redirect() -> route('masyarakat-index');
-    }
+        $validate = $request->validate([
+            'nik'=> 'required|min:16',
+            'name'=>'required',
+            'email'=>'required',
+            'password'=>'required',
 
+        ]);
+        $User = new User();
+        $User->nik = $request->nik;
+        $User->name = $request->name;
+        $User->email = $request->email;
+        $User->password = bcrypt($request->password) ;
+        $User->role = 'Admin';
+        //dd($validate);
+        $User->save();
+
+        return redirect() -> route('user-index')->with('message','picture berhasil dibuat');
+    }
 
     /**
      * Display the specified resource.
@@ -81,12 +86,12 @@ class MasyarakatController extends Controller
     public function edit($id)
     {
         $data = [
-            'form_title' => 'Edit Masyarakat',
+            'form_title' => 'Edit User',
             'method' => 'PUT',
-            'route' => route('masyarakat-update', $id),
-            'masyarakat' => User::where('id',$id)->first(),
+            'route' => route('user-update', $id),
+            'pengguna' => User::where('id',$id)->first(),
         ];
-        return view('admin.masyarakat.edit', $data);
+        return view('admin.user.edit', $data);
     }
 
     /**
@@ -98,18 +103,23 @@ class MasyarakatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $masyarakat=User::find($id);
-        $masyarakat->nik = $request->nik;
-        $masyarakat->address = $request->address;
-        $masyarakat->email = $request->email;
-        $masyarakat->name = $request->name;
-        $masyarakat->dob = $request->dob;
-        $masyarakat->phone = $request->phone;
+        $User=User::find($id);
+        $User->nik = $request->nik;
+        $User->name = $request->name;
+        $User->gender = $request->gender;
+        $User->dob = $request->dob;
+        $User->address = $request->address;
+        $User->phone = $request->phone;
+        $User->photo = $request->photo;
+        $User->email = $request->email;
 
 
 
-        $masyarakat->update();
-        return redirect()->route('masyarakat-index');
+
+
+
+        $User->update();
+        return redirect()->route('user-index');
     }
 
     /**
@@ -122,6 +132,6 @@ class MasyarakatController extends Controller
     {
         $destroy = User::where('id', $id);
         $destroy->delete();
-        return redirect()->route('masyarakat-index');
+        return redirect()->route('user-index');
     }
 }

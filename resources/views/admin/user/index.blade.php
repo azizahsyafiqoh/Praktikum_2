@@ -9,57 +9,53 @@
                 <div class="card-header">
                     <div class="row ml-3">
                     <h4 class="card-title">{{ $title ?? '' }}</h4>
-                    @if(Auth::user()->role == 'Admin')
                     <div class="d-flex ml-3">
-                        <a href="/add-masyarakat" class="btn btn-primary">Create New</a>
+                        <a href="/add-user" class="btn btn-primary">Create New</a>
                     </div>
-                    @endif
                     </div>
-
                 </div>
                 </div>
                 </div>
                 <div class="card-body">
                   <div>
-                        <table id="table_id" class="table" style="width: 100%">
+                        <table id="table_id" class="display" style="width: 100%">
                             <thead>
+                                <tr>
                                 <th> # </th>
                                 <th> Nik </th>
-                                <th> Nama </th>
-                                <th> Alamat </th>
+                                <th> Name </th>
                                 <th> Email </th>
-                                <th> Nama </th>
-                                <th> Tanggal Lahir </th>
-                                <th> Telepon </th>
-                                <th> Action </th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @php $i=0 @endphp
-                                @foreach($masyarakats as $masyarakat)
+                                @foreach($users as $user)
                                 @php $i++ @endphp
                                 <tr>
                                     <td> {{ $i }} </td>
-                                    <td> {{ $masyarakat->nik }} </td>
-                                    <td> {{ $masyarakat->name }} </td>
-                                    <td> {{ $masyarakat->address }} </td>
-                                    <td> {{ $masyarakat->email }} </td>
-                                    <td> {{ $masyarakat->name }} </td>
-                                    <td> {{ $masyarakat->dob }} </td>
-                                    <td> {{ $masyarakat->phone }} </td>
+                                    <td> {{ $user->nik }} </td>
+                                    <td > {{ $user->name }} </td>
+                                    <td> {{ $user->email }} </td>
                                     <td>
-                                    <form method="post" action="{{ route('masyarakat-destroy', $masyarakat->id) }}">
+                                    <form method="post" action="{{ route('user-destroy',$user->id) }}">
 
 
-
-                           @csrf
+                                <a button type="button" class="btn btn-warning" href="{{ route('user-edit',$user->id) }}">Edit</button></a>
+                                @csrf
                                 @method('DELETE')
-                                <input type="submit" onclick="return confirm ('Apakah Anda Yakin Ingin Menghapus Data Pengguna ?'); " value="delete" class="btn btn-danger">
+                                <input type="submit" onclick="return confirm ('Apakah Anda Yakin Ingin Menghapus Data Petugas ?'); " value="delete" class="btn btn-danger">
+
                             </form>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <script>
+                        $(document).ready( function () {
+                            $('#table_id').DataTable();
+                        } );
+                        </script>
                     </div>
                 </div>
             </div>
@@ -67,7 +63,6 @@
     </div>
 </div>
 @endsection
-
 @section('script')
 <script>
     $(document).ready(function() {
@@ -91,3 +86,4 @@
 } );
 </script>
 @endsection
+
